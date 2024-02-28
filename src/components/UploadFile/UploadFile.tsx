@@ -3,7 +3,6 @@ import { UploadOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { Button, message, Upload } from 'antd';
 import Papa from 'papaparse';
-import {Data} from "../../App";
 
 const props: UploadProps = {
     accept: '.csv',
@@ -12,42 +11,38 @@ const props: UploadProps = {
     headers: {
         authorization: 'authorization-text',
     },
+    maxCount: 1,
 };
 
 type UploadButtonProps = {
-    onAddData: (data: Data) => void;
-    onRemoveData: (uid: string) => void;
+    onChangeData: (data: string[]) => void;
 }
 
-const UploadButton = ({ onAddData, onRemoveData } : UploadButtonProps) => {
-    const [fileList, setFileList] = useState<any[]>([]);
+const UploadFile = ({ onChangeData } : UploadButtonProps) => {
+    const [fileList, setFileList] = useState();
 
     const handleChange = (info: any) => {
-        let { status, name, uid } = info.file;
+        let { status, name } = info.file;
         if (status === 'done') {
             message.success(`${name} файл успешно загружен.`);
-            parseCSV(info.file.originFileObj, uid);
+            parseCSV(info.file.originFileObj);
         } else if (status === 'error') {
             message.error(`${name} ошибка в загрузке файла.`);
         }
         // Update the fileList state with the new fileList from the info object
         setFileList(info.fileList);
 
-        // If the file is being removed, call onRemoveData with the file name
+        // If the file is being removed, call onRemoveData with the file uid
         if (status === 'removed') {
-            onRemoveData(uid);
+            onChangeData([]);
         }
     };
 
-    const parseCSV = (file: File, uid: string) => {
+    const parseCSV = (file: File) => {
         Papa.parse(file, {
             complete: (results) => {
-                // Add the file name to each row of data
-                const newData: Data = {
-                    uid,
-                    strings: results.data as string[],
-                }
-                onAddData(newData);
+                onChangeData(results.data.flat() as string[]);
+                console.log(results.data);
             },
             delimiter: ';',
             skipEmptyLines: true,
@@ -61,4 +56,4 @@ const UploadButton = ({ onAddData, onRemoveData } : UploadButtonProps) => {
     );
 };
 
-export default UploadButton;
+export default UploadFile;

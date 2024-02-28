@@ -1,29 +1,28 @@
 import React, {useState} from 'react';
-import UploadButton from "./components/UploadButton/UploadButton";
+import UploadFile from "./components/UploadFile/UploadFile";
 import StringList from "./components/StringList/StringList";
 
-export type Data = {
-    uid: string;
-    strings: string[];
-}
-
 const App = () => {
-    const [data, setData] = useState<Data[]>([]);
+    const [data, setData] = useState<string[]>([]);
+    const [selectedWords, setSelectedWords] = useState<Record<number, string[]>>({});
 
-    // Function to handle adding new data from the child component
-    const handleAddData = (newData: Data) => {
-        setData(prevState => [...prevState, newData]);
-    };
-
-    // Function to handle removing data based on a file name
-    const handleRemoveData = (fileName: string) => {
-        setData(prevData => prevData.filter(data => data.uid !== fileName));
+    const handleWordSelected = (word: string, rowIndex: number) => {
+        setSelectedWords(prev => {
+            const words = prev[rowIndex] || [];
+            const index = words.indexOf(word);
+            if (index === -1) {
+                words.push(word);
+            } else {
+                words.splice(index,  1);
+            }
+            return { ...prev, [rowIndex]: words };
+        });
     };
 
     return (
         <div>
-            <UploadButton onAddData={handleAddData} onRemoveData={handleRemoveData} />
-            <StringList data={data} />
+            <UploadFile onChangeData={setData} />
+            <StringList data={data} onWordSelected={handleWordSelected} />
         </div>
     );
 };
