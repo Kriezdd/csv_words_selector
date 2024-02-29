@@ -1,0 +1,15 @@
+body {
+    background: #f1f1f1;
+}
+.app {
+    max-width: 1000px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+}

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { UploadOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
-import { Button, message, Upload } from 'antd';
+import React, {useState} from 'react';
+import {UploadOutlined} from '@ant-design/icons';
+import type {UploadProps} from 'antd';
+import {Button, message, Upload} from 'antd';
 import Papa from 'papaparse';
 
 const props: UploadProps = {
@@ -18,11 +18,11 @@ type UploadButtonProps = {
     onChangeData: (data: string[]) => void;
 }
 
-const UploadFile = ({ onChangeData } : UploadButtonProps) => {
+const UploadFile = ({onChangeData}: UploadButtonProps) => {
     const [fileList, setFileList] = useState();
 
     const handleChange = (info: any) => {
-        let { status, name } = info.file;
+        let {status, name} = info.file;
         if (status === 'done') {
             message.success(`${name} файл успешно загружен.`);
             parseCSV(info.file.originFileObj);
@@ -50,8 +50,8 @@ const UploadFile = ({ onChangeData } : UploadButtonProps) => {
     };
 
     return (
-        <Upload {...props} onChange={handleChange} >
-            <Button icon={<UploadOutlined />}>Загрузить .csv файл</Button>
+        <Upload {...props} onChange={handleChange}>
+            <Button icon={<UploadOutlined/>}>Загрузить .csv файл</Button>
         </Upload>
     );
 };
