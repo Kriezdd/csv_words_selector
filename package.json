@@ -1,6 +1,7 @@
 {
   "name": "kaspersky-test",
   "version": "0.1.0",
+  "homepage": "https://kriezdd.github.io/csv_words_selector",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
