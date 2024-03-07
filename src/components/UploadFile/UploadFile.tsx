@@ -42,7 +42,6 @@ const UploadFile = ({onChangeData}: UploadButtonProps) => {
         Papa.parse(file, {
             complete: (results) => {
                 onChangeData(results.data.flat() as string[]);
-                console.log(results.data);
             },
             delimiter: ';',
             skipEmptyLines: true,

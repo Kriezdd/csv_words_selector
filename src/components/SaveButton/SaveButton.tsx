@@ -1,25 +1,26 @@
 import React from 'react';
+import Papa from "papaparse";
 import {Button} from "antd";
 import {DownloadOutlined} from '@ant-design/icons';
 
 type SaveButtonProps = {
-    selectedWords: Record<number, string[]>;
+    selectedWords: Record<number, { word: string; wordId: number }[]>;
 }
 
 
 const SaveButton = ({selectedWords}: SaveButtonProps) => {
     const handleSaveClick = () => {
-        const selectedWordsString = Object.values(selectedWords)
-            .map(words => words.join(' '))
-            .join('|');
-        const csvContent = `data:text/csv;charset=utf-8,${selectedWordsString}\n`;
+        const data = Object.values(selectedWords).map(words => words.map(word => decodeURIComponent(word.word)).join('|'));
 
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "selected_words.csv");
+        const csv = data.join('\n');
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'selected_words.csv';
         document.body.appendChild(link);
-
         link.click();
         document.body.removeChild(link);
     };
