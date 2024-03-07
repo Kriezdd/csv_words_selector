@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/csv_words_selector/static/css/main.cf4fbb22.css",
-    "main.js": "/csv_words_selector/static/js/main.433fbaba.js",
+    "main.js": "/csv_words_selector/static/js/main.62773e72.js",
     "index.html": "/csv_words_selector/index.html",
     "main.cf4fbb22.css.map": "/csv_words_selector/static/css/main.cf4fbb22.css.map",
-    "main.433fbaba.js.map": "/csv_words_selector/static/js/main.433fbaba.js.map"
+    "main.62773e72.js.map": "/csv_words_selector/static/js/main.62773e72.js.map"
   },
   "entrypoints": [
     "static/css/main.cf4fbb22.css",
-    "static/js/main.433fbaba.js"
+    "static/js/main.62773e72.js"
   ]
 }
