@@ -1,6 +1,6 @@
 # Выбор слов из .csv файла
 
-## (gh-pages: https://kriezdd.github.io/csv_words_selector/)
+### gh-pages: https://kriezdd.github.io/csv_words_selector/
 
 ### Используемый инструментарий:
 <p>
